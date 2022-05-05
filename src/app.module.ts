@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CardModule } from './card/card.module';
+import { CardModule } from './api/card/card.module';
 
 @Module({
   imports: [

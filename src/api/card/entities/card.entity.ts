@@ -1,9 +1,11 @@
+import { Deck } from 'src/api/deck/entities/deck.entity';
 import { User } from 'src/api/user/entities/user.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToMany,
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
@@ -34,6 +36,9 @@ export class Card {
 
   @ManyToOne(() => User, () => Card)
   user: User;
+
+  @ManyToMany(() => Deck, () => Card)
+  decks: Deck[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: string;

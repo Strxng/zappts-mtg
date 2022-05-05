@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CardModule } from './api/card/card.module';
+import { UserModule } from './api/user/user.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { CardModule } from './api/card/card.module';
         },
       }),
     }),
+    UserModule,
   ],
   controllers: [],
   providers: [],

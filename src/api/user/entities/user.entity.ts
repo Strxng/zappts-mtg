@@ -1,16 +1,16 @@
-import { User } from 'src/api/user/entities/user.entity';
+import { Card } from 'src/api/card/entities/card.entity';
 import {
   Column,
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity({ name: 'cards' })
-export class Card {
+@Entity({ name: 'users' })
+export class User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -18,22 +18,22 @@ export class Card {
   name: string;
 
   @Column()
-  edition: string;
+  phone: string;
+
+  @Column({ type: 'date' })
+  birthdate: Date;
 
   @Column()
-  language: string;
-
-  @Column({ name: 'is_foil' })
-  isFoil: boolean;
-
-  @Column({ type: 'decimal' })
-  price: number;
+  email: string;
 
   @Column()
-  amount: number;
+  password: string;
 
-  @ManyToOne(() => User, () => Card)
-  user: User;
+  @OneToMany(() => Card, () => User)
+  cards: Card[];
+
+  @Column({ name: 'is_active', default: true })
+  isActive: boolean;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: string;

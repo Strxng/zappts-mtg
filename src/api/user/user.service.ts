@@ -1,24 +1,35 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { User } from './entities/user.entity';
 
 @Injectable()
 export class UserService {
-  create(body) {
-    return 'This action adds a new user';
+  constructor(
+    @InjectRepository(User)
+    private readonly userRepository: Repository<User>,
+  ) {}
+
+  async create(data) {
+    return await this.userRepository.save(this.userRepository.create(data));
   }
 
-  findAll() {
-    return `This action returns all user`;
+  async findAll() {
+    return await this.userRepository.find();
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} user`;
+  async findOne(id: string) {
+    return await this.userRepository.findOne(id);
   }
 
-  update(id: string, body) {
-    return `This action updates a #${id} user`;
+  async update(id: string, data) {
+    const user = await this.userRepository.findOne(id);
+    this.userRepository.merge(user, data);
+    return await this.userRepository.save(user);
   }
 
-  remove(id: string) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    await this.userRepository.findOne(id);
+    await this.userRepository.softDelete(id);
   }
 }
